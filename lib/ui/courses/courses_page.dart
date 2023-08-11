@@ -26,8 +26,34 @@ class _CoursesPageState extends State<CoursesPage> {
             child: CircularProgressIndicator(),
           );
         }
-        return Text(courses.toString());
+        return ListView.builder(
+            padding: const EdgeInsets.all(16.0),
+            itemCount: courses.length,
+            itemBuilder: (BuildContext context, int position) {
+              return _buildRow(courses[position]);
+            });
       },
+    );
+  }
+
+  Widget _buildRow(Course course) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListTile(
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: Text(course.name, style: const TextStyle(fontSize: 18.0)),
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child:
+              Text(course.domainString, style: const TextStyle(fontSize: 12.0)),
+        ),
+        trailing: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.network(course.artworkUrl),
+        ),
+      ),
     );
   }
 }
