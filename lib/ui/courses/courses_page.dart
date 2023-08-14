@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rwcourses/repository/course_repository.dart';
+import 'package:rwcourses/ui/course_detail/course_details_page.dart';
 import 'package:rwcourses/ui/courses/courses_controller.dart';
 
 import '../../constants.dart';
@@ -49,9 +50,17 @@ class _CoursesPageState extends State<CoursesPage> {
           child:
               Text(course.domainString, style: const TextStyle(fontSize: 12.0)),
         ),
-        trailing: ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(course.artworkUrl),
+        onTap: () {
+          Navigator.of(context).push<MaterialPageRoute>(MaterialPageRoute(
+              builder: (context) => CourseDetailsPage(course: course)));
+        },
+        trailing: Hero(
+          tag: 'cardArtwork-${course.courseId}',
+          transitionOnUserGestures: true,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.network(course.artworkUrl),
+          ),
         ),
       ),
     );
